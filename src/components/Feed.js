@@ -179,30 +179,46 @@ export default props => (
   <StaticQuery
     query={graphql`
       query SearchQuery {
-        allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "blog-post"}}}) {
-            edges {
-              node {
-                frontmatter {
-                  title
-                  image {
-                      childImageSharp {
-                        fluid(maxWidth: 240, quality: 64) {
-                          ...GatsbyImageSharpFluid
-                        }
-                      }
-                    }
-                }
-                fields {
-                  slug
-                }
+          projects: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "project"}}}) {
+    edges {
+      node {
+        frontmatter {
+          title
+          templateKey
+          featuredimage {
+            childImageSharp {
+              fluid(maxWidth: 10) {
+                src
               }
             }
           }
         }
+      }
+    }
+  }
+  posts: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "blog-post"}}}) {
+    edges {
+      node {
+        frontmatter {
+          title
+          templateKey
+          featuredimage {
+            childImageSharp {
+              fluid(maxWidth: 10) {
+                src
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+        }
     `}
-    render={values => <Feed values={values.allMarkdownRemark.edges} />}
+    render={values => <Feed values={values.posts.edges} projects={values.projects.edges} />}
   />
 )
 Feed.propTypes = {
   values: PropTypes.array.isRequired,
+  projects: PropTypes.array.isRequired,
 }
