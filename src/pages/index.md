@@ -2,9 +2,9 @@
 templateKey: index-page
 title: Great coffee with a conscience
 image: /img/home-jumbotron.jpg
-video: /img/home-jumbotron.jpg
-heading: Great coffee with a conscience
-subheading: Support sustainable farming while enjoying a cup
+video: /img/bildschirmfoto-2019-05-28-um-15.38.14.png
+heading: Christoph Halstenberg
+subheading: Motion Design
 mainpitch:
   title: Why Kaldi
   description: >
@@ -69,3 +69,4 @@ main:
     alt: Coffee beans
     image: /img/products-grid1.jpg
 ---
+
