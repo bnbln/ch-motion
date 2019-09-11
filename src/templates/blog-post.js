@@ -5,12 +5,14 @@ import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
+import ReactPlayer from 'react-player'
 
 export const BlogPostTemplate = ({
   content,
   contentComponent,
   description,
   tags,
+  video,
   title,
   helmet,
 }) => {
@@ -27,6 +29,38 @@ export const BlogPostTemplate = ({
             </h1>
             <p>{description}</p>
             <PostContent content={content} />
+            {console.log(video)}
+            {video ?
+              <div>
+                <h3>Video</h3>
+                <ReactPlayer url={video}
+                  config={{
+                    youtube: {
+                      playerVars: {
+                        showinfo: 0,
+                        modestbranding: 1,
+                        controls: 0,
+                        fs: 0,
+                        rel: 0
+                      },
+                      
+                    },
+                    vimeo: {
+                      playerOptions: {
+                        byline: false,
+                        controls: false,
+                        portrait: false,
+                        title: false
+                      }
+                    }
+                  }}
+                  playing controls={false} loop={true} volume={0} muted
+                  playsinline
+                  width='100%'
+                  height='400px'
+                />
+              </div>
+            : null}
             {tags && tags.length ? (
               <div style={{ marginTop: `4rem` }}>
                 <h4>Tags</h4>
@@ -50,6 +84,7 @@ BlogPostTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
   description: PropTypes.string,
+  video: PropTypes.string,
   title: PropTypes.string,
   helmet: PropTypes.object,
 }
@@ -61,6 +96,7 @@ const BlogPost = ({ data }) => {
     <Layout>
       <BlogPostTemplate
         content={post.html}
+        video={post.frontmatter.video}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
         helmet={
@@ -97,6 +133,7 @@ export const pageQuery = graphql`
         title
         description
         tags
+        video
       }
     }
   }

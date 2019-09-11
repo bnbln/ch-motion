@@ -2,9 +2,69 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
 import Layout from '../components/Layout'
 import Features from '../components/Features'
 import BlogRoll from '../components/BlogRoll'
+
+import Header from '../components/Header'
+import Feed from '../components/Feed'
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      scroll: 0
+    }
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+  componentDidMount() {
+    window.addEventListener('scroll', this.updateDimensions);
+  }
+  updateDimensions() {
+    this.setState({
+      scroll: window.pageYOffset
+    })
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.updateDimensions);
+  }
+  render() {
+    var image = this.props.image
+    return (
+      <div className="app" style={{
+        width: "100%",
+        overflow: "hidden"
+      }}>
+        <Grid container direction="row"
+          justify="center"
+          alignItems="center"
+          style={{
+            zIndex: 1,
+            position: "relative",
+            backgroundColor: "white",
+            marginBottom: 300,
+            boxShadow: "0px -15px 60px -10px black"
+          }}>
+          <Header
+            image={!!image.childImageSharp ? image.childImageSharp.fluid.src : image}
+            scroll={this.state.scroll}
+          // video={video}
+          />
+          <Grid item xs={11} style={{ marginBottom: 150 }}>
+            <Feed height={400} scroll={this.state.scroll} />
+          </Grid>
+    
+          
+        </Grid>
+      </div>
+    )
+  }
+}
+
+
 
 export const IndexPageTemplate = ({
   image,
@@ -15,7 +75,10 @@ export const IndexPageTemplate = ({
   description,
   intro,
 }) => (
-  <div>
+    <div>
+      <App image={image}>
+
+      </App>
     <div
       className="full-width-image margin-top-0"
       style={{

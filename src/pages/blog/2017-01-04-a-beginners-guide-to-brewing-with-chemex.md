@@ -8,7 +8,7 @@ description: Brewing with a Chemex probably seems like a complicated, time-consu
 tags:
   - brewing
   - chemex
-video: https://www.youtube.com/watch?v=-rAeqN-Q7x4
+video: https://vimeo.com/272552384
 ---
 ![chemex](/img/chemex.jpg)
 
