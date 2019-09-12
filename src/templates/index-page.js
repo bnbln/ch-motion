@@ -33,6 +33,9 @@ class App extends React.Component {
   }
   render() {
     var image = this.props.image
+    var video = this.props.video
+
+    console.log(video)
     return (
       <div className="app" style={{
         width: "100%",
@@ -48,6 +51,8 @@ class App extends React.Component {
             marginBottom: 300,
             boxShadow: "0px -15px 60px -10px black"
           }}>
+          <img src={video} />
+
           <Header
             image={!!image.childImageSharp ? image.childImageSharp.fluid.src : image}
             scroll={this.state.scroll}
@@ -68,6 +73,7 @@ class App extends React.Component {
 
 export const IndexPageTemplate = ({
   image,
+  video,
   title,
   heading,
   subheading,
@@ -76,7 +82,7 @@ export const IndexPageTemplate = ({
   intro,
 }) => (
     <div>
-      <App image={image}>
+      <App image={image} video={video}>
 
       </App>
     <div
@@ -196,6 +202,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <IndexPageTemplate
         image={frontmatter.image}
+        video={frontmatter.video}
         title={frontmatter.title}
         heading={frontmatter.heading}
         subheading={frontmatter.subheading}
@@ -229,6 +236,7 @@ export const pageQuery = graphql`
             }
           }
         }
+        video
         heading
         subheading
         mainpitch {
