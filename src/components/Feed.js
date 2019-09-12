@@ -126,10 +126,11 @@ function FeedItem(props) {
           transform: `translate3d(0px, ${x}px,0px)`,
         }}
       >
+        {console.log(item.node.frontmatter.backgroundimage)}
         <div style={{
           backgroundColor: item.backgroundColor ? item.backgroundColor : null,
           height: "100%",
-          backgroundImage: item.node.frontmatter.featuredimage ? "url(" + item.node.frontmatter.featuredimage.childImageSharp.fluid.src + ")" : null,
+          backgroundImage: item.node.frontmatter.backgroundimage ? "url(" + item.node.frontmatter.backgroundimage.childImageSharp.fluid.src + ")" : null,
           backgroundSize: "cover",
           overflow: "hidden"
         }}>
@@ -215,6 +216,13 @@ export default props => (
           title
           templateKey
           featuredimage {
+            childImageSharp {
+              fluid(maxWidth: 1080) {
+                src
+              }
+            }
+          }
+          backgroundimage {
             childImageSharp {
               fluid(maxWidth: 1080) {
                 src
