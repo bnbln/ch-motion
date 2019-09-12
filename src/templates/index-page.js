@@ -84,11 +84,11 @@ export const IndexPageTemplate = ({
       <App image={image} video={video} title={title} heading={heading} subheading={subheading} >
 
       </App>
-                      <h1 className="title">{mainpitch.title}</h1>
+                      {/* <h1 className="title">{mainpitch.title}</h1>
                       <h3 className="subtitle">{mainpitch.description}</h3>
                       <p>{description}</p>
                       <Features gridItems={intro.blurbs} />
-                      <BlogRoll />
+                      <BlogRoll /> */}
        
   </div>
 )
@@ -109,7 +109,6 @@ const IndexPage = ({ data }) => {
   const { frontmatter } = data.markdownRemark
 
   return (
-    <Layout>
       <IndexPageTemplate
         image={frontmatter.image}
         video={frontmatter.video}
@@ -120,7 +119,6 @@ const IndexPage = ({ data }) => {
         description={frontmatter.description}
         intro={frontmatter.intro}
       />
-    </Layout>
   )
 }
 

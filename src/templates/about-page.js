@@ -19,12 +19,12 @@ import Typography from '@material-ui/core/Typography';
 import VisibilitySensor from "react-visibility-sensor";
 import { Textfit } from 'react-textfit';
 
-export const AboutPageTemplate = ({ title, content, contentComponent }) => {
+export const AboutPageTemplate = ({ title, image, content, contentComponent }) => {
   const PageContent = contentComponent || Content
 
   return (
 
-              <Page title={title} >
+              <Page title={title} image={image} >
                 <PageContent className="content" content={content} />
               </Page>
               
@@ -33,6 +33,7 @@ export const AboutPageTemplate = ({ title, content, contentComponent }) => {
 
 AboutPageTemplate.propTypes = {
   title: PropTypes.string.isRequired,
+  image: PropTypes.object,
   content: PropTypes.string,
   contentComponent: PropTypes.func,
 }
@@ -45,6 +46,7 @@ const AboutPage = ({ data }) => {
       <AboutPageTemplate
         contentComponent={HTMLContent}
         title={post.frontmatter.title}
+        image={post.frontmatter.image}
         content={post.html}
       />
     </Layout>
@@ -63,6 +65,13 @@ export const aboutPageQuery = graphql`
       html
       frontmatter {
         title
+        image {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }
@@ -93,6 +102,7 @@ class Page extends Component {
   }
   render() {
     var scroller = Scroll.scroller;
+    
     return (
       <Grid container direction="row"
         justify="center"
@@ -115,10 +125,8 @@ class Page extends Component {
             alignItems="center"
             spacing={3}
           >
-            <Grid item xs={12} md={6}>
-              <Typography variant="h4" component="p" style={{ overflowWrap: "break-word", marginBottom: 100 }}>
-                {this.props.children}
-                </Typography>
+            <Grid item xs={12} md={6} style={{ marginBottom: 100 }}>
+              {this.props.children}
               
               <Fab aria-label="add" style={{ marginRight: 16 }} onClick={() =>
                 scroller.scrollTo('myScrollToElement', {
@@ -152,7 +160,7 @@ class Page extends Component {
             <Grid item xs={12} md={6}>
               <VisibilitySensor partialVisibility onChange={(e) => this.setState({ active: e })} active={!this.state.active}>
                 {({ isVisible }) => (
-                  <img alt="" src="https://chris.thesolu.com/wp-content/uploads/sites/2/2019/06/IMG_0377-EditZeichenfla%CC%88che-1.png" style={{
+                  <img alt="" src={this.props.image ? this.props.image.childImageSharp.fluid.src : null} style={{
                     width: "100%",
                     height: "auto",
                     marginBottom: -3,
