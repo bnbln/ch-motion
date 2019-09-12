@@ -16,8 +16,11 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Description", name: "description", widget: "text", required: false}
-      - {label: "Featured Post", name: "featuredpost", widget: "boolean"}
+      - {label: "Featured Post", name: "featuredpost", widget: "boolean", required: false}
       - {label: "Featured Image", name: "featuredimage", widget: image}
+      - {label: "Background Image", name: "backgroundimage", widget: image, required: false}
+      - {label: "Color", name: "color", widget: "string", required: false}
+      - {label: "Background Color", name: "backgroundcolor", widget: "string", required: false}
       - {label: "Body", name: "body", widget: "markdown", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Video", name: "video", widget: "string", required: false}
@@ -28,7 +31,12 @@ collections:
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "project"}
       - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "featuredimage", widget: image}
+      - {label: "Background Image", name: "backgroundimage", widget: image, required: false}
+      - {label: "Color", name: "color", widget: "string", required: false}
+      - {label: "Background Color", name: "backgroundcolor", widget: "string", required: false}
+      - {label: "Videos", name: "videos", widget: "relation", collection: "videos", searchFields: ["title"], valueField: "title", displayFields: ["title", "date"], required: false}
   - name: "pages"
     label: "Pages"
     files:
