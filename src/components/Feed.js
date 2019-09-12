@@ -115,10 +115,10 @@ function FeedItem(props) {
   }
 
   return (
-    <Grid item xs={12} md={item.template === "post" ? open ? 12 : 6 : 12} style={{ padding: 0, margin: 0, ...stylesOpen }}>
+    <Grid item xs={12} md={item.node.frontmatter.templateKey === "blog-post" ? open ? 12 : 6 : 12} style={{ padding: 0, margin: 0, ...stylesOpen }}>
       <animated.div
         onClick={() => toggle(!open)}
-        className="box"
+        className="content-box"
         style={{
           opacity,
           padding: open ? "0px" : padding,
@@ -129,7 +129,7 @@ function FeedItem(props) {
         <div style={{
           backgroundColor: item.backgroundColor ? item.backgroundColor : null,
           height: "100%",
-          backgroundImage: item.backgroundImage ? "url(" + item.backgroundImage + ")" : null,
+          backgroundImage: item.node.frontmatter.featuredimage ? "url(" + item.node.frontmatter.featuredimage.childImageSharp.fluid.src + ")" : null,
           backgroundSize: "cover",
           overflow: "hidden"
         }}>
@@ -195,7 +195,7 @@ export default props => (
           templateKey
           featuredimage {
             childImageSharp {
-              fluid(maxWidth: 500) {
+              fluid(maxWidth: 1080) {
                 src
               }
             }
@@ -216,7 +216,7 @@ export default props => (
           templateKey
           featuredimage {
             childImageSharp {
-              fluid(maxWidth: 10) {
+              fluid(maxWidth: 1080) {
                 src
               }
             }
