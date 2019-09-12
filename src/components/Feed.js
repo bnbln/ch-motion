@@ -11,21 +11,10 @@ import Tab from '@material-ui/core/Tab';
 
 import * as Scroll from 'react-scroll';
 
-
-
-var ball = {}
-var ball2 = {}
-
 var Element = Scroll.Element;
 
 function Feed(props) {
-  var posts = props.values
-  var projects = props.projects
-  var data = []
-  posts.map(item => data.push(item))
-  projects.map(item => data.push(item))
   const [value, setValue] = React.useState(0);
-  var pagedata = feed(value, data)
   function feed(value, data) {
     var entries = []
 
@@ -36,15 +25,16 @@ function Feed(props) {
       entries = data.filter(item => item.node.frontmatter.templateKey === "project")
     }
     if (value === 0) {
-      entries = data
+      entries = data.filter(item => item.node.frontmatter.templateKey === "project" || item.node.frontmatter.templateKey === "blog-post")
     }    
     return entries
   }
+  var pagedata = feed(value, props.allMarkdownRemark)
+
   function handleChange(event, newValue) {
     setValue(newValue)
   }
 
-console.log(pagedata)
   return (
     <Grid container
       direction="row"
@@ -184,8 +174,8 @@ export default props => (
   <StaticQuery
     query={graphql`
       query SearchQuery {
-          projects: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "project"}}}) {
-    edges {
+        allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}, filter: {frontmatter: {date: {nin: "null"}}}) {
+          edges {
       node {
         id
         fields {
@@ -214,44 +204,15 @@ export default props => (
         }
       }
     }
-  }
-  posts: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "blog-post"}}}) {
-    edges {
-      node {
-        id
-        fields {
-          slug
         }
-        frontmatter {
-          title
-          templateKey
-          date
-          color
-          backgroundcolor
-          featuredimage {
-            childImageSharp {
-              fluid(maxWidth: 1080) {
-                src
-              }
-            }
-          }
-          backgroundimage {
-            childImageSharp {
-              fluid(maxWidth: 1080) {
-                src
-              }
-            }
-          }
-        }
-      }
-    }
-  }
         }
     `}
-    render={values => <Feed values={values.posts.edges} title={props.title} projects={values.projects.edges} />}
+    render={values => <div>
+      {console.log(values)}
+      <Feed  allMarkdownRemark={values.allMarkdownRemark.edges} title={props.title} />
+    </div>}
   />
 )
 Feed.propTypes = {
-  values: PropTypes.array.isRequired,
-  projects: PropTypes.array.isRequired,
+  allMarkdownRemark: PropTypes.array.isRequired,
 }
