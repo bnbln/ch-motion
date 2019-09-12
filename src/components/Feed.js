@@ -44,7 +44,7 @@ function Feed(props) {
     setValue(newValue)
   }
 
-
+console.log(pagedata)
   return (
     <Grid container
       direction="row"
@@ -126,19 +126,19 @@ function FeedItem(props) {
           transform: `translate3d(0px, ${x}px,0px)`,
         }}
       >
-        {console.log(item.node.frontmatter.backgroundimage)}
         <div style={{
-          backgroundColor: item.backgroundColor ? item.backgroundColor : null,
+          backgroundColor: item.node.frontmatter.backgroundcolor ? item.node.frontmatter.backgroundcolor : '#ffffff',
           height: "100%",
           backgroundImage: item.node.frontmatter.backgroundimage ? "url(" + item.node.frontmatter.backgroundimage.childImageSharp.fluid.src + ")" : null,
           backgroundSize: "cover",
+          backgroundPosition: "center",
           overflow: "hidden"
         }}>
           <Grid container
             direction="row"
             justify="center"
             alignItems="flex-end"
-            style={{ height: open ? "100vh" : 500, position: "relative", transition: "all 0.5s ease-in-out" }}
+            style={{ height: open ? "100vh" : 450, position: "relative", transition: "all 0.5s ease-in-out" }}
           >
             {item.node.frontmatter.featuredimage ?
               <div style={{
@@ -164,7 +164,7 @@ function FeedItem(props) {
             {item.node.frontmatter.title ?
               <Grid item>
                 <p style={{
-                  color: item.color ? item.color : null,
+                  color: item.node.frontmatter.color ? item.node.frontmatter.color : "#000000",
                   fontSize: 47,
                   textTransform: "uppercase",
                   width: "100%",
@@ -194,6 +194,9 @@ export default props => (
         frontmatter {
           title
           templateKey
+          date
+          color
+          backgroundcolor
           featuredimage {
             childImageSharp {
               fluid(maxWidth: 1080) {
@@ -215,6 +218,9 @@ export default props => (
         frontmatter {
           title
           templateKey
+          date
+          color
+          backgroundcolor
           featuredimage {
             childImageSharp {
               fluid(maxWidth: 1080) {
