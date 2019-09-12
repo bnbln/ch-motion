@@ -204,6 +204,13 @@ export default props => (
               }
             }
           }
+        backgroundimage {
+            childImageSharp {
+              fluid(maxWidth: 1080) {
+                src
+              }
+            }
+          }
         }
       }
     }

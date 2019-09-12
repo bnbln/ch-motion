@@ -1,4 +1,4 @@
-const transitionDelay = 500
+const transitionDelay = 200
 
 exports.shouldUpdateScroll = ({
   routerProps: { location },

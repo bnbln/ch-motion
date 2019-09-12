@@ -57,9 +57,10 @@ class App extends React.Component {
             title={this.props.title} heading={this.props.heading} subheading={this.props.subheading}
 
           />
-          <Grid item xs={11} style={{ marginBottom: 150 }}>
+          <Grid item xs={11} style={{ marginBottom: 150, backgroundColor: "white" }}>
             <Feed height={400} scroll={this.state.scroll} title={this.props.title} />
           </Grid>
+          
     
           
         </Grid>

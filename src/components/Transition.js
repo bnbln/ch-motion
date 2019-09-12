@@ -3,19 +3,22 @@ import {
   TransitionGroup,
   Transition as ReactTransition,
 } from "react-transition-group"
-const timeout = 500
+const timeout = 700
 const getTransitionStyles = {
   entering: {
     position: `absolute`,
     opacity: 0,
+    marginTop: 200
   },
   entered: {
-    transition: `opacity ${timeout}ms ease-in-out`,
+    transition: `all ${timeout}ms ease-in-out`,
     opacity: 1,
+    marginTop: 0
   },
   exiting: {
-    transition: `opacity ${timeout}ms ease-in-out`,
+    transition: `all ${timeout}ms ease-in-out`,
     opacity: 0,
+    marginTop: -200
   },
 }
 class Transition extends React.PureComponent {
