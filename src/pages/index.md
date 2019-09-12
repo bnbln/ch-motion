@@ -1,6 +1,6 @@
 ---
 templateKey: index-page
-title: Great coffee with a conscience
+title: Animationen
 image: /img/home-jumbotron.jpg
 video: /img/header.mp4
 heading: Christoph Halstenberg

@@ -62,30 +62,34 @@ export default class Header extends Component {
               transform: "translateY(" + this.props.scroll + "px)"
             }}>
             <Grid item xs={8} sm={4}>
-              <h3 style={{
-                textAlign: "center",
-                backgroundColor: "white",
-                padding: "40px 20px",
-                fontSize: "26px",
-                color: "#3a3764",
-                letterSpacing: "-0.2px",
-                fontFamily: "Gibson",
-                textTransform: "uppercase",
-                boxShadow: "-1px 4px 30px -30px black",
-              }}>Christoph Halstenberg</h3>
-              <h3 style={{
-                textAlign: "center",
-                backgroundColor: "white",
-                padding: "20px 10px",
-                fontSize: "12px",
-                color: "#3a3764",
-                letterSpacing: "1.43px",
-                fontFamily: "Gibson",
-                textTransform: "uppercase",
-                boxShadow: "-1px 4px 30px -30px black",
-                fontWeight: 600,
-                margin: "0px 50px"
-              }}>Motion Design</h3>
+              {this.props.heading != null ?
+                <h3 style={{
+                  textAlign: "center",
+                  backgroundColor: "white",
+                  padding: "40px 20px",
+                  fontSize: "26px",
+                  color: "#3a3764",
+                  letterSpacing: "-0.2px",
+                  fontFamily: "Gibson",
+                  textTransform: "uppercase",
+                  boxShadow: "-1px 4px 30px -30px black",
+                }}>{this.props.heading}</h3>
+              : null}
+              {this.props.subheading ?
+                <h3 style={{
+                  textAlign: "center",
+                  backgroundColor: "white",
+                  padding: "20px 10px",
+                  fontSize: "12px",
+                  color: "#3a3764",
+                  letterSpacing: "1.43px",
+                  fontFamily: "Gibson",
+                  textTransform: "uppercase",
+                  boxShadow: "-1px 4px 30px -30px black",
+                  fontWeight: 600,
+                  margin: "0px 50px"
+                }}>{this.props.subheading}</h3>
+                : null}
             </Grid>
             <Grid item xs={12} style={{ textAlign: "center" }}>
               <Fab aria-label="add" onClick={() =>

@@ -19,21 +19,25 @@ var ball2 = {}
 var Element = Scroll.Element;
 
 function Feed(props) {
-  console.log(props.values)
-  let data = props.values
+  var posts = props.values
+  var projects = props.projects
+  var data = []
+  posts.map(item => data.push(item))
+  projects.map(item => data.push(item))
   const [value, setValue] = React.useState(0);
   var pagedata = feed(value, data)
   function feed(value, data) {
     var entries = []
+
     if (value === 1) {
-      entries = data.filter(item => item.template === "post")
+      entries = data.filter(item => item.node.frontmatter.templateKey === "blog-post")
     }
     if (value === 2) {
-      entries = data.filter(item => item.template === "project")
+      entries = data.filter(item => item.node.frontmatter.templateKey === "project")
     }
     if (value === 0) {
       entries = data
-    }
+    }    
     return entries
   }
   function handleChange(event, newValue) {
@@ -57,7 +61,7 @@ function Feed(props) {
             paddingTop: 40,
             paddingBottom: 40
           }}>
-            Animationen
+            {props.title}
       </Textfit>
 
 
@@ -83,7 +87,7 @@ function Feed(props) {
         leave={{ opacity: 0, x: 300, height: 0, padding: 0 }}
         update={{ opacity: 1 }}
         config={config.slow}
-        keys={item => item.key}>
+        keys={item => item.node.id}>
         {item => ({ x, opacity, height, padding }) => (
           <FeedItem item={item} x={x} height={height} padding={padding} opacity={opacity} />
         )}
@@ -135,7 +139,7 @@ function FeedItem(props) {
             alignItems="flex-end"
             style={{ height: open ? "100vh" : 500, position: "relative", transition: "all 0.5s ease-in-out" }}
           >
-            {item.image ?
+            {item.node.frontmatter.featuredimage ?
               <div style={{
                 width: 200,
                 height: 200,
@@ -145,7 +149,7 @@ function FeedItem(props) {
                 backgroundColor: item.imageColor ? item.imageColor : null,
                 transition: "all 0.5s ease-in-out"
               }}>
-                <img alt="" src={item.image} style={{
+                <img alt="" src={item.node.frontmatter.featuredimage.childImageSharp.fluid.src} style={{
                   width: "auto",
                   height: "auto",
                   maxWidth: "100%",
@@ -156,7 +160,7 @@ function FeedItem(props) {
                 />
               </div>
               : null}
-            {item.heading ?
+            {item.node.frontmatter.title ?
               <Grid item>
                 <p style={{
                   color: item.color ? item.color : null,
@@ -164,7 +168,7 @@ function FeedItem(props) {
                   textTransform: "uppercase",
                   width: "100%",
                   fontWeight: 900,
-                }}>{item.heading}</p>
+                }}>{item.node.frontmatter.title}</p>
               </Grid>
               : null
             }
@@ -182,12 +186,16 @@ export default props => (
           projects: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "project"}}}) {
     edges {
       node {
+        id
+        fields {
+          slug
+        }
         frontmatter {
           title
           templateKey
           featuredimage {
             childImageSharp {
-              fluid(maxWidth: 10) {
+              fluid(maxWidth: 500) {
                 src
               }
             }
@@ -199,6 +207,10 @@ export default props => (
   posts: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "blog-post"}}}) {
     edges {
       node {
+        id
+        fields {
+          slug
+        }
         frontmatter {
           title
           templateKey
@@ -215,7 +227,7 @@ export default props => (
   }
         }
     `}
-    render={values => <Feed values={values.posts.edges} projects={values.projects.edges} />}
+    render={values => <Feed values={values.posts.edges} title={props.title} projects={values.projects.edges} />}
   />
 )
 Feed.propTypes = {

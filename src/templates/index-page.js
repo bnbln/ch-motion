@@ -12,6 +12,7 @@ import BlogRoll from '../components/BlogRoll'
 import Header from '../components/Header'
 import Feed from '../components/Feed'
 
+import video01 from "../../static/img/header.mp4"
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -32,10 +33,8 @@ class App extends React.Component {
     window.removeEventListener("scroll", this.updateDimensions);
   }
   render() {
-    var image = this.props.image
-    var video = this.props.video
+    var {image, video, title, heading, subheading} = this.props
 
-    console.log(video)
     return (
       <div className="app" style={{
         width: "100%",
@@ -51,15 +50,15 @@ class App extends React.Component {
             marginBottom: 300,
             boxShadow: "0px -15px 60px -10px black"
           }}>
-          <img src={video} />
-
           <Header
             image={!!image.childImageSharp ? image.childImageSharp.fluid.src : image}
             scroll={this.state.scroll}
-          // video={video}
+            video={video01}
+            title={this.props.title} heading={this.props.heading} subheading={this.props.subheading}
+
           />
           <Grid item xs={11} style={{ marginBottom: 150 }}>
-            <Feed height={400} scroll={this.state.scroll} />
+            <Feed height={400} scroll={this.state.scroll} title={this.props.title} />
           </Grid>
     
           
@@ -82,7 +81,7 @@ export const IndexPageTemplate = ({
   intro,
 }) => (
     <div>
-      <App image={image} video={video}>
+      <App image={image} video={video} title={title} heading={heading} subheading={subheading} >
 
       </App>
     <div
