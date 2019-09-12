@@ -237,7 +237,7 @@ export const pageQuery = graphql`
           }
         }
         video {
-          ...
+          id
         }
         heading
         subheading
