@@ -2,7 +2,7 @@
 templateKey: index-page
 title: Great coffee with a conscience
 image: /img/home-jumbotron.jpg
-video: /img/bildschirmfoto-2019-05-28-um-15.38.14.png
+video: /img/header.mp4
 heading: Christoph Halstenberg
 subheading: Motion Design
 mainpitch:
