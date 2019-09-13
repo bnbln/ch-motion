@@ -42,14 +42,12 @@ const AboutPage = ({ data }) => {
   const { markdownRemark: post } = data
 
   return (
-    <Layout>
       <AboutPageTemplate
         contentComponent={HTMLContent}
         title={post.frontmatter.title}
         image={post.frontmatter.image}
         content={post.html}
       />
-    </Layout>
   )
 }
 
@@ -108,27 +106,28 @@ class Page extends Component {
         justify="center"
         alignItems="center"
         style={{
-          backgroundColor: "cadetblue"
+          backgroundColor: "cadetblue",
+          minHeight: "100vh",
+          overflow: "hidden"
         }}
       >
         <Grid item xs={11} style={{
           marginTop: 50
         }}>
           <Textfit mode="single" style={{
-            paddingTop: 40,
-            paddingBottom: 40
+            paddingTop: 50,
           }}>
             {this.props.title}
           </Textfit>
           <Grid container direction="row"
-            justify="center"
+            justify="flex-end"
             alignItems="center"
             spacing={3}
           >
             <Grid item xs={12} md={6} style={{ marginBottom: 100 }}>
               {this.props.children}
               
-              <Fab aria-label="add" style={{ marginRight: 16 }} onClick={() =>
+              <Fab aria-label="add" style={{ marginRight: 16, marginTop: 50 }} onClick={() =>
                 scroller.scrollTo('myScrollToElement', {
                   duration: 1100,
                   delay: 10,
@@ -138,7 +137,7 @@ class Page extends Component {
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
               </Fab>
 
-              <Fab aria-label="add" style={{ marginRight: 16 }} onClick={() =>
+              <Fab aria-label="add" style={{ marginRight: 16, marginTop: 50 }} onClick={() =>
                 scroller.scrollTo('myScrollToElement', {
                   duration: 1100,
                   delay: 10,
@@ -147,7 +146,7 @@ class Page extends Component {
                 })} >
                 <FontAwesomeIcon icon={['fab', 'instagram']} size="lg" />
               </Fab>
-              <Fab aria-label="add" style={{ marginRight: 16 }} onClick={() =>
+              <Fab aria-label="add" style={{ marginRight: 16, marginTop: 50 }} onClick={() =>
                 scroller.scrollTo('myScrollToElement', {
                   duration: 1100,
                   delay: 10,
@@ -163,7 +162,7 @@ class Page extends Component {
                   <img alt="" src={this.props.image ? this.props.image.childImageSharp.fluid.src : null} style={{
                     width: "100%",
                     height: "auto",
-                    marginBottom: -3,
+                    marginBottom: 3,
                     filter: this.state.active === true ? "brightness(1.1)" : "brightness(0)",
                     transition: "filter 0.8s 1s ease-in"
 

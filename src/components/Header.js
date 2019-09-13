@@ -105,7 +105,7 @@ export default class MainHeader extends Component {
               </Grid>
 
               <Grid item xs={12} style={{ textAlign: "center" }}>
-                <Fab aria-label="add" onClick={() =>
+                <Fab aria-label="add" color="primary" onClick={() =>
                   scroller.scrollTo('myScrollToElement', {
                     duration: 1100,
                     delay: 10,
